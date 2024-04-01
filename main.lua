@@ -109,6 +109,8 @@ function love.load()
 	for i=1, 4 do
 	end
 
+	currentFrame = 6
+
 	print("raw width: "..rawFrameWidth)
 	print("raw height: "..rawFrameHeight)
 	print("costume width: "..costumeFrameWidth)
@@ -121,11 +123,14 @@ function love.load()
 end
 
 function love.update(dt)
-
+	currentFrame = currentFrame + 4*dt
+	if currentFrame >= 10 then
+		currentFrame = 6
+	end
 end
 
 function love.draw()
 	-- the frame heights and width are small so probs scale them to 1.5 x and y
 	love.graphics.draw(bg, 0, 0, 0, bg_scaleX, bg_scaleY)
-	love.graphics.draw(charRawSheet, charRawFrames[1], love.graphics.getWidth()/2 - rawFrameWidth/2, love.graphics.getHeight()/2 - rawFrameHeight/2, 0, 3, 3)
+	love.graphics.draw(charRawSheet, charRawFrames[math.floor(currentFrame)], love.graphics.getWidth()/2 - rawFrameWidth/2, love.graphics.getHeight()/2 - rawFrameHeight/2, 0, 3, 3)
 end
