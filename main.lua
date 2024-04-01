@@ -10,6 +10,10 @@ function love.load()
 
 	print(bg_scaleX)
 	print(bg_scaleY)
+
+	bg_music = love.audio.newSource("audio/bgm.mp3", "stream")
+	bg_music:setLooping(true)
+	love.audio.play(bg_music)
 end
 
 function love.update(dt)
