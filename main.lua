@@ -4,6 +4,7 @@ function love.load()
 
 	-- local imports
 	require "src.warrior"
+	require "src.mage"
 
 	-- screen & bg work
 	screen_width = love.graphics.getWidth()
@@ -32,6 +33,7 @@ function love.load()
 
 	-- instantiating entities
 	warrior = Warrior(warriorSheet, 1000, 400)
+	mage = Mage(warriorSheet, mageArmorSheet, 1000, 550)
 
 	-- TODO:
 	-- refactor animation and frame drawing to use the OOP entity class
@@ -42,10 +44,12 @@ end
 
 function love.update(dt)
 	warrior:animate(dt)
+	mage:animate(dt)
 end
 
 function love.draw()
 	-- the frame heights and width are small so probs scale them to 1.5 x and y
 	love.graphics.draw(bg, 0, 0, 0, bg_scaleX, bg_scaleY)
 	warrior:draw()
+	mage:draw()
 end
