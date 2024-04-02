@@ -1,6 +1,6 @@
 Mage = Object:extend()
 
-function Mage:new(charSheet, armSheet, x, y)
+function Mage:new(charSheet, armSheet, x, y, speed, name)
 	self.charSheet = charSheet
 	self.armSheet = armSheet
 	self.frames = {}
@@ -74,6 +74,8 @@ function Mage:new(charSheet, armSheet, x, y)
 
 	self.x = x
 	self.y = y
+	self.speed = speed
+	self.name = name
 	self.currentFrame = 1
 end
 

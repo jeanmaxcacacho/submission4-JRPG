@@ -39,10 +39,21 @@ function love.load()
 
 
 	-- instantiating entities
-	warrior = Warrior(warriorSheet, 1000, 400)
-	mage = Mage(warriorSheet, mageArmorSheet, 1000, 550)
-	enemy = Enemy(enemy1_sheet, 300, 400 + 10)
-	enemy2 = Enemy(enemy2_sheet, 300, 550 + 10)
+	warrior = Warrior(warriorSheet, 1000, 400, 10, "Warrior")
+	mage = Mage(warriorSheet, mageArmorSheet, 1000, 550, 3, "Mage")
+	enemy = Enemy(enemy1_sheet, 300, 400 + 10, 11, "Enemy 1")
+	enemy2 = Enemy(enemy2_sheet, 300, 550 + 10, 12, "Enemy 2")
+
+	entities = {warrior, mage, enemy, enemy2}
+
+	-- I wish I could debug my own life
+	for i=1, 4 do
+		print(entities[i].name..": "..entities[i].speed)
+	end
+
+	-- I think it's best to just put all the turn code here
+	turnQueue = {}
+
 
 	-- GUI shit
 	menu = Menu()

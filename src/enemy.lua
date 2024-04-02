@@ -1,6 +1,6 @@
 Enemy = Object:extend()
 
-function Enemy:new(spriteSheet, x, y)
+function Enemy:new(spriteSheet, x, y, speed, name)
 	self.spriteSheet = spriteSheet
 	self.frames = {}
 
@@ -131,6 +131,8 @@ function Enemy:new(spriteSheet, x, y)
 
 	self.x = x
 	self.y = y
+	self.speed = speed
+	self.name = name
 	self.currentFrame = 1
 
 end
