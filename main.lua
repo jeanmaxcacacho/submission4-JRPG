@@ -80,7 +80,7 @@ function love.load()
 			charRawFrames,
 			love.graphics.newQuad(
 				rawFrameWidth*i,
-				rawFrameHeight*4,
+				rawFrameHeight*3,
 				rawFrameWidth,
 				rawFrameHeight,
 				charRawSheetWidth,
@@ -109,7 +109,7 @@ function love.load()
 	for i=1, 4 do
 	end
 
-	currentFrame = 6
+	currentFrame = 15
 
 	print("raw width: "..rawFrameWidth)
 	print("raw height: "..rawFrameHeight)
@@ -117,15 +117,16 @@ function love.load()
 	print("costume height: "..costumeFrameHeight)
 
 	-- TODO:
+	-- refactor animation and frame drawing to use the OOP entity class
 	-- start with drawing in the enemies
 	-- then start making the UI (prospected hard part)
 	-- game logic probs comes last TBH
 end
 
 function love.update(dt)
-	currentFrame = currentFrame + 4*dt
-	if currentFrame >= 10 then
-		currentFrame = 6
+	currentFrame = currentFrame + 10*dt
+	if currentFrame >= 19 then
+		currentFrame = 15
 	end
 end
 
