@@ -1,3 +1,5 @@
+-- this submission is implementing the classic turn based system
+
 function love.load()
 	-- libraries
 	Object = require "lib.classic"
@@ -75,9 +77,13 @@ function love.load()
 	-- refactor animation and frame drawing to use the OOP entity class (DONE)
 	-- start with drawing in the enemies (DONE)
 	-- WE'RE DOING THE TURN QUEUE FIRST BABY
+	-- 	* the numbers part of the turn queue is done :)) tbh I can probs just leave it at that since the rest I'll index
 	-- then start making the UI (prospected hard part)
 	-- 	* for this I'll start by first drawing rectangles on the screen
 	-- game logic probs comes last TBH
+	-- 	* i think kasi this is just calling arithmetic on object properties hehe xd
+	-- 	* turnQueue[currentTurn].action to target, dealt {arithmetic} damage
+	-- 		* print something like that I guess
 end
 
 function love.update(dt)
@@ -106,14 +112,47 @@ end
 function love.draw()
 	love.graphics.draw(bg, 0, 0, 0, bg_scaleX, bg_scaleY)
 
-	if turnQueue[currentTurn].name == "warrior" then
-		love.graphics.circle(
-			"line", 
-			warrior.x + warrior.getWidth/2,
-			warrior.y + warrior.getHeight + 5,
-			warrior.getWidth + 5,
+	-- turn indicator
+	if turnQueue[currentTurn].name == "Warrior" then
+		love.graphics.setColor(0, 0.7, 0)
+		love.graphics.rectangle(
+			"fill", 
+			warrior.x + warrior.width/2 + 20,
+			warrior.y - 15,
+			12,
 			12
 		)
+		love.graphics.setColor(1, 1, 1)
+	elseif turnQueue[currentTurn].name == "Mage" then
+		love.graphics.setColor(0, 0.7, 0)
+		love.graphics.rectangle(
+			"fill", 
+			mage.x + mage.width/2 + 20,
+			mage.y - 15,
+			12,
+			12
+		)
+		love.graphics.setColor(1, 1, 1)
+	elseif turnQueue[currentTurn].name == "Enemy 1" then
+		love.graphics.setColor(0, 0.7, 0)
+		love.graphics.rectangle(
+			"fill", 
+			enemy.x + enemy.width/2 + 10,
+			enemy.y - 15,
+			12,
+			12
+		)
+		love.graphics.setColor(1, 1, 1)
+	elseif turnQueue[currentTurn].name == "Enemy 2" then
+		love.graphics.setColor(0, 0.7, 0)
+		love.graphics.rectangle(
+			"fill", 
+			enemy2.x + enemy2.width/2 + 10,
+			enemy2.y - 15,
+			12,
+			12
+		)
+		love.graphics.setColor(1, 1, 1)
 	end
 
 	warrior:draw()

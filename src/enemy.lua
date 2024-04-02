@@ -131,6 +131,8 @@ function Enemy:new(spriteSheet, x, y, speed, name)
 
 	self.x = x
 	self.y = y
+	self.width = frameWidth
+	self.height = frameHeight
 	self.speed = speed
 	self.name = name
 	self.isTurn = false
