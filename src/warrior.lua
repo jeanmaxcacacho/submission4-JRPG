@@ -1,7 +1,7 @@
 Warrior = Object:extend()
 
 
-function Warrior:new(spriteSheet, x, y)
+function Warrior:new(spriteSheet, x, y, speed, name)
 	self.spriteSheet = spriteSheet
 	self.frames = {}
 
@@ -75,6 +75,11 @@ function Warrior:new(spriteSheet, x, y)
 
 	self.x = x
 	self.y = y
+	self.speed = speed
+	self.width = frameWidth
+	self.height = frameHeight
+	self.name = name
+	self.isTurn = false
 	self.currentFrame = 1
 end
 

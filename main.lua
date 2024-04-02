@@ -1,3 +1,5 @@
+-- this submission is implementing the classic turn based system
+
 function love.load()
 	-- libraries
 	Object = require "lib.classic"
@@ -39,10 +41,34 @@ function love.load()
 
 
 	-- instantiating entities
-	warrior = Warrior(warriorSheet, 1000, 400)
-	mage = Mage(warriorSheet, mageArmorSheet, 1000, 550)
-	enemy = Enemy(enemy1_sheet, 300, 400 + 10)
-	enemy2 = Enemy(enemy2_sheet, 300, 550 + 10)
+	warrior = Warrior(warriorSheet, 1000, 400, 10, "Warrior")
+	mage = Mage(warriorSheet, mageArmorSheet, 1000, 550, 3, "Mage")
+	enemy = Enemy(enemy1_sheet, 300, 400 + 10, 11, "Enemy 1")
+	enemy2 = Enemy(enemy2_sheet, 300, 550 + 10, 12, "Enemy 2")
+
+	entities = {warrior, mage, enemy, enemy2}
+
+	-- I wish I could debug my own life
+	for i=1, 4 do
+		print(entities[i].name .. ": " .. entities[i].speed)
+	end
+
+	-- I think it's best to just put all the turn code here in main
+	turnQueue = {warrior, mage, enemy, enemy2}
+
+	local function compareSpeed(a, b)
+		return a.speed > b.speed
+	end
+
+	table.sort(turnQueue, compareSpeed)
+
+	for i=1, #turnQueue do
+		print(turnQueue[i].name)
+	end
+
+	-- turn queue start
+	currentTurn = 1
+	print("---QUEUE START---\n" .. turnQueue[currentTurn].name .. " current turn is " .. currentTurn)
 
 	-- GUI shit
 	menu = Menu()
@@ -50,9 +76,15 @@ function love.load()
 	-- TODO:
 	-- refactor animation and frame drawing to use the OOP entity class (DONE)
 	-- start with drawing in the enemies (DONE)
-	-- then start making the UI (prospected hard part)
+	-- WE'RE DOING THE TURN QUEUE FIRST BABY (DONE)
+	-- 	* the numbers part of the turn queue is done :)) tbh I can probs just leave it at that since the rest I'll index
+	-- 	* from ellipses I made the turn indicator a rectangle instead since the oval at the feet was too hard
+	-- game logic probs comes last TBH [I lied this is where I am currently]
+	-- 	* i think kasi this is just calling arithmetic on object properties hehe xd
+	-- 	* turnQueue[currentTurn].action to target, dealt {arithmetic} damage
+	-- 		* print something like that I guess
+	-- then start making the UI; the prospected hard part
 	-- 	* for this I'll start by first drawing rectangles on the screen
-	-- game logic probs comes last TBH
 end
 
 function love.update(dt)
@@ -60,11 +92,70 @@ function love.update(dt)
 	mage:animate(dt)
 	enemy:animate(dt)
 	enemy2:animate(dt)
+
+end
+
+function love.keypressed(key)
+	if key == "space" then
+		currentTurn = currentTurn + 1
+		if currentTurn > 4 then
+			currentTurn = 1
+		end
+
+		if currentTurn == 1 then
+			print("from ".. turnQueue[4].name .." to ".. turnQueue[currentTurn].name .. " current turn is " .. currentTurn)
+		else
+			print("from ".. turnQueue[currentTurn-1].name .." to ".. turnQueue[currentTurn].name .. " current turn is " .. currentTurn)
+		end
+	end
 end
 
 function love.draw()
-	-- the frame heights and width are small so probs scale them to 1.5 x and y
 	love.graphics.draw(bg, 0, 0, 0, bg_scaleX, bg_scaleY)
+
+	-- turn indicator
+	if turnQueue[currentTurn].name == "Warrior" then
+		love.graphics.setColor(0, 0.7, 0)
+		love.graphics.rectangle(
+			"fill", 
+			warrior.x + warrior.width/2 + 20,
+			warrior.y - 15,
+			12,
+			12
+		)
+		love.graphics.setColor(1, 1, 1)
+	elseif turnQueue[currentTurn].name == "Mage" then
+		love.graphics.setColor(0, 0.7, 0)
+		love.graphics.rectangle(
+			"fill", 
+			mage.x + mage.width/2 + 20,
+			mage.y - 15,
+			12,
+			12
+		)
+		love.graphics.setColor(1, 1, 1)
+	elseif turnQueue[currentTurn].name == "Enemy 1" then
+		love.graphics.setColor(0, 0.7, 0)
+		love.graphics.rectangle(
+			"fill", 
+			enemy.x + enemy.width/2 + 10,
+			enemy.y - 15,
+			12,
+			12
+		)
+		love.graphics.setColor(1, 1, 1)
+	elseif turnQueue[currentTurn].name == "Enemy 2" then
+		love.graphics.setColor(0, 0.7, 0)
+		love.graphics.rectangle(
+			"fill", 
+			enemy2.x + enemy2.width/2 + 10,
+			enemy2.y - 15,
+			12,
+			12
+		)
+		love.graphics.setColor(1, 1, 1)
+	end
+
 	warrior:draw()
 	mage:draw()
 	enemy:draw()
