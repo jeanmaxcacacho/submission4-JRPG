@@ -133,6 +133,7 @@ function Enemy:new(spriteSheet, x, y, speed, name)
 	self.y = y
 	self.speed = speed
 	self.name = name
+	self.isTurn = false
 	self.currentFrame = 1
 
 end

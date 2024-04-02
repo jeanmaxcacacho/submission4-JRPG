@@ -51,9 +51,20 @@ function love.load()
 		print(entities[i].name..": "..entities[i].speed)
 	end
 
-	-- I think it's best to just put all the turn code here
-	turnQueue = {}
+	-- I think it's best to just put all the turn code here in main
+	turnQueue = {warrior, mage, enemy, enemy2}
 
+	local function compareSpeed(a, b)
+		return a.speed > b.speed
+	end
+
+	table.sort(turnQueue, compareSpeed)
+
+	for i=1, #turnQueue do
+		print(turnQueue[i].name)
+	end
+
+	currentTurn = 1
 
 	-- GUI shit
 	menu = Menu()
@@ -61,6 +72,7 @@ function love.load()
 	-- TODO:
 	-- refactor animation and frame drawing to use the OOP entity class (DONE)
 	-- start with drawing in the enemies (DONE)
+	-- WE'RE DOING THE TURN QUEUE FIRST BABY
 	-- then start making the UI (prospected hard part)
 	-- 	* for this I'll start by first drawing rectangles on the screen
 	-- game logic probs comes last TBH
@@ -71,6 +83,13 @@ function love.update(dt)
 	mage:animate(dt)
 	enemy:animate(dt)
 	enemy2:animate(dt)
+end
+
+function love.keypressed(key)
+	if key == "space" then
+		currentTurn = currentTurn + 1
+		print(currentTurn)
+	end
 end
 
 function love.draw()
