@@ -6,6 +6,7 @@ function love.load()
 	require "src.warrior"
 	require "src.mage"
 	require "src.enemy"
+	require "src.menu"
 
 	-- screen & bg work
 	screen_width = love.graphics.getWidth()
@@ -43,10 +44,14 @@ function love.load()
 	enemy = Enemy(enemy1_sheet, 300, 400 + 10)
 	enemy2 = Enemy(enemy2_sheet, 300, 550 + 10)
 
+	-- GUI shit
+	menu = Menu()
+
 	-- TODO:
-	-- refactor animation and frame drawing to use the OOP entity class
-	-- start with drawing in the enemies
+	-- refactor animation and frame drawing to use the OOP entity class (DONE)
+	-- start with drawing in the enemies (DONE)
 	-- then start making the UI (prospected hard part)
+	-- 	* for this I'll start by first drawing rectangles on the screen
 	-- game logic probs comes last TBH
 end
 
@@ -64,4 +69,5 @@ function love.draw()
 	mage:draw()
 	enemy:draw()
 	enemy2:draw()
+	menu:draw()
 end
