@@ -97,19 +97,22 @@ function love.load()
 	costumeFrameHeight = charCostumeSheetHeight/4
 	charCostumeFrames = {}
 
-	for i=1, 5 do
+	-- the costume loops
+	for i=0, 4 do
+		table.insert(
+			charCostumeFrames,
+			love.graphics.newQuad(
+				costumeFrameWidth*i,
+				0,
+				costumeFrameWidth,
+				costumeFrameHeight,
+				charCostumeSheetWidth,
+				charCostumeSheetHeight
+			)
+		)
 	end
 
-	for i=1, 4 do
-	end
-
-	for i=1, 5 do
-	end
-
-	for i=1, 4 do
-	end
-
-	currentFrame = 15
+	currentFrame = 1
 
 	print("raw width: "..rawFrameWidth)
 	print("raw height: "..rawFrameHeight)
@@ -125,8 +128,8 @@ end
 
 function love.update(dt)
 	currentFrame = currentFrame + 10*dt
-	if currentFrame >= 19 then
-		currentFrame = 15
+	if currentFrame >= 6 then
+		currentFrame = 1
 	end
 end
 
@@ -134,4 +137,5 @@ function love.draw()
 	-- the frame heights and width are small so probs scale them to 1.5 x and y
 	love.graphics.draw(bg, 0, 0, 0, bg_scaleX, bg_scaleY)
 	love.graphics.draw(charRawSheet, charRawFrames[math.floor(currentFrame)], love.graphics.getWidth()/2 - rawFrameWidth/2, love.graphics.getHeight()/2 - rawFrameHeight/2, 0, 3, 3)
+	love.graphics.draw(charCostumeSheet, charCostumeFrames[math.floor(currentFrame)], love.graphics.getWidth()/2 - rawFrameWidth/2, love.graphics.getHeight()/2 - rawFrameHeight/2, 0, 3, 3)
 end
