@@ -48,7 +48,7 @@ function love.load()
 
 	-- I wish I could debug my own life
 	for i=1, 4 do
-		print(entities[i].name..": "..entities[i].speed)
+		print(entities[i].name .. ": " .. entities[i].speed)
 	end
 
 	-- I think it's best to just put all the turn code here in main
@@ -64,7 +64,9 @@ function love.load()
 		print(turnQueue[i].name)
 	end
 
+	-- turn queue start
 	currentTurn = 1
+	print("---QUEUE START---\n" .. turnQueue[currentTurn].name .. " current turn is " .. currentTurn)
 
 	-- GUI shit
 	menu = Menu()
@@ -83,18 +85,37 @@ function love.update(dt)
 	mage:animate(dt)
 	enemy:animate(dt)
 	enemy2:animate(dt)
+
 end
 
 function love.keypressed(key)
 	if key == "space" then
 		currentTurn = currentTurn + 1
-		print(currentTurn)
+		if currentTurn > 4 then
+			currentTurn = 1
+		end
+
+		if currentTurn == 1 then
+			print("from ".. turnQueue[4].name .." to ".. turnQueue[currentTurn].name .. " current turn is " .. currentTurn)
+		else
+			print("from ".. turnQueue[currentTurn-1].name .." to ".. turnQueue[currentTurn].name .. " current turn is " .. currentTurn)
+		end
 	end
 end
 
 function love.draw()
-	-- the frame heights and width are small so probs scale them to 1.5 x and y
 	love.graphics.draw(bg, 0, 0, 0, bg_scaleX, bg_scaleY)
+
+	if turnQueue[currentTurn].name == "warrior" then
+		love.graphics.circle(
+			"line", 
+			warrior.x + warrior.getWidth/2,
+			warrior.y + warrior.getHeight + 5,
+			warrior.getWidth + 5,
+			12
+		)
+	end
+
 	warrior:draw()
 	mage:draw()
 	enemy:draw()
