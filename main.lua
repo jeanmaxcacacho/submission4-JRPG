@@ -3,6 +3,7 @@ function love.load()
 	Object = require "lib.classic"
 
 	-- local imports
+	require "src.warrior"
 
 	-- screen & bg work
 	screen_width = love.graphics.getWidth()
@@ -23,114 +24,28 @@ function love.load()
 	-- (speaking of which) both sheets have 5 columns and 4 rows, each row depicting the same action
 	-- both sheets also have the same width and so also same frame width and frame height
 	-- four for loops for each row of the sprite sheets; have to do this since not all frames have a sprite
-	maxFrames = 18
-
-	charRawSheet = love.graphics.newImage("visuals/char1sheet.png")
-	charRawSheetWidth = charRawSheet:getWidth()
-	charRawSheetHeight = charRawSheet:getHeight()
-	rawFrameWidth = charRawSheetWidth/5
-	rawFrameHeight = charRawSheetHeight/4
-	charRawFrames = {}
-
-	-- made the iterators start with 0 so that I can do the chinese width multiplication hack
-	for i=0, 4 do
-		table.insert(
-			charRawFrames,
-			love.graphics.newQuad(
-				rawFrameWidth*i,
-				0,
-				rawFrameWidth,
-				rawFrameHeight,
-				charRawSheetWidth,
-				charRawSheetHeight
-			)
-		)
-	end
-
-	for i=0, 3 do
-		table.insert(
-			charRawFrames,
-			love.graphics.newQuad(
-				rawFrameWidth*i,
-				rawFrameHeight*1,
-				rawFrameWidth,
-				rawFrameHeight,
-				charRawSheetWidth,
-				charRawSheetHeight
-			)
-		)
-	end
-
-	for i=0, 4 do
-		table.insert(
-			charRawFrames,
-			love.graphics.newQuad(
-				rawFrameWidth*i,
-				rawFrameHeight*2,
-				rawFrameWidth,
-				rawFrameHeight,
-				charRawSheetWidth,
-				charRawSheetHeight
-			)
-		)
-	end
-
-	for i=0, 3 do
-		table.insert(
-			charRawFrames,
-			love.graphics.newQuad(
-				rawFrameWidth*i,
-				rawFrameHeight*4,
-				rawFrameWidth,
-				rawFrameHeight,
-				charRawSheetWidth,
-				charRawSheetHeight
-			)
-		)
-	end
+	-- leaving the comments here but the sprite work has been moved to the entity classes
 	
+	-- loading sprite sheets in
+	warriorSheet = love.graphics.newImage("visuals/char1sheet.png")
+	mageArmorSheet = love.graphics.newImage("visuals/char2sheet.png")
 
-	charCostumeSheet = love.graphics.newImage("visuals/char2sheet.png")
-	charCostumeSheetWidth = charCostumeSheet:getWidth()
-	charCostumeSheetHeight = charCostumeSheet:getHeight()
-	costumeFrameWidth = charCostumeSheetWidth/5
-	costumeFrameHeight = charCostumeSheetHeight/4
-	charCostumeFrames = {}
-
-	for i=1, 5 do
-	end
-
-	for i=1, 4 do
-	end
-
-	for i=1, 5 do
-	end
-
-	for i=1, 4 do
-	end
-
-	currentFrame = 6
-
-	print("raw width: "..rawFrameWidth)
-	print("raw height: "..rawFrameHeight)
-	print("costume width: "..costumeFrameWidth)
-	print("costume height: "..costumeFrameHeight)
+	-- instantiating entities
+	warrior = Warrior(warriorSheet, 1000, 400)
 
 	-- TODO:
+	-- refactor animation and frame drawing to use the OOP entity class
 	-- start with drawing in the enemies
 	-- then start making the UI (prospected hard part)
 	-- game logic probs comes last TBH
 end
 
 function love.update(dt)
-	currentFrame = currentFrame + 4*dt
-	if currentFrame >= 10 then
-		currentFrame = 6
-	end
+	warrior:animate(dt)
 end
 
 function love.draw()
 	-- the frame heights and width are small so probs scale them to 1.5 x and y
 	love.graphics.draw(bg, 0, 0, 0, bg_scaleX, bg_scaleY)
-	love.graphics.draw(charRawSheet, charRawFrames[math.floor(currentFrame)], love.graphics.getWidth()/2 - rawFrameWidth/2, love.graphics.getHeight()/2 - rawFrameHeight/2, 0, 3, 3)
+	warrior:draw()
 end
