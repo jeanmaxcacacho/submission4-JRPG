@@ -5,6 +5,7 @@ function love.load()
 	-- local imports
 	require "src.warrior"
 	require "src.mage"
+	require "src.enemy"
 
 	-- screen & bg work
 	screen_width = love.graphics.getWidth()
@@ -30,10 +31,17 @@ function love.load()
 	-- loading sprite sheets in
 	warriorSheet = love.graphics.newImage("visuals/char1sheet.png")
 	mageArmorSheet = love.graphics.newImage("visuals/char2sheet.png")
+	-- the mushrooms are 7 x 8 spriteSheets where the odd rows have a missing frame at the end
+	-- since I don't have to do the chinese layering trick I can just make one class tbh
+	enemy1_sheet = love.graphics.newImage("visuals/enemy1.png")
+	enemy2_sheet = love.graphics.newImage("visuals/enemy2.png")
+
 
 	-- instantiating entities
 	warrior = Warrior(warriorSheet, 1000, 400)
 	mage = Mage(warriorSheet, mageArmorSheet, 1000, 550)
+	enemy = Enemy(enemy1_sheet, 300, 400 + 10)
+	enemy2 = Enemy(enemy2_sheet, 300, 550 + 10)
 
 	-- TODO:
 	-- refactor animation and frame drawing to use the OOP entity class
@@ -45,6 +53,8 @@ end
 function love.update(dt)
 	warrior:animate(dt)
 	mage:animate(dt)
+	enemy:animate(dt)
+	enemy2:animate(dt)
 end
 
 function love.draw()
@@ -52,4 +62,6 @@ function love.draw()
 	love.graphics.draw(bg, 0, 0, 0, bg_scaleX, bg_scaleY)
 	warrior:draw()
 	mage:draw()
+	enemy:draw()
+	enemy2:draw()
 end

@@ -3,7 +3,6 @@ Mage = Object:extend()
 function Mage:new(charSheet, armSheet, x, y)
 	self.charSheet = charSheet
 	self.armSheet = armSheet
-	
 	self.frames = {}
 
 	-- both sheets are basically the same dimension wise
