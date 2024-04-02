@@ -76,14 +76,15 @@ function love.load()
 	-- TODO:
 	-- refactor animation and frame drawing to use the OOP entity class (DONE)
 	-- start with drawing in the enemies (DONE)
-	-- WE'RE DOING THE TURN QUEUE FIRST BABY
+	-- WE'RE DOING THE TURN QUEUE FIRST BABY (DONE)
 	-- 	* the numbers part of the turn queue is done :)) tbh I can probs just leave it at that since the rest I'll index
-	-- then start making the UI (prospected hard part)
-	-- 	* for this I'll start by first drawing rectangles on the screen
-	-- game logic probs comes last TBH
+	-- 	* from ellipses I made the turn indicator a rectangle instead since the oval at the feet was too hard
+	-- game logic probs comes last TBH [I lied this is where I am currently]
 	-- 	* i think kasi this is just calling arithmetic on object properties hehe xd
 	-- 	* turnQueue[currentTurn].action to target, dealt {arithmetic} damage
 	-- 		* print something like that I guess
+	-- then start making the UI; the prospected hard part
+	-- 	* for this I'll start by first drawing rectangles on the screen
 end
 
 function love.update(dt)
