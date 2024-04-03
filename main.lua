@@ -8,7 +8,8 @@ function love.load()
 	require "src.warrior"
 	require "src.mage"
 	require "src.enemy"
-	-- require "src.menu"
+	require "src.dump"
+	require "src.menu"
 
 	-- screen & bg work
 	screen_width = love.graphics.getWidth()
@@ -35,7 +36,7 @@ function love.load()
 	warriorSheet = love.graphics.newImage("visuals/char1sheet.png")
 	mageArmorSheet = love.graphics.newImage("visuals/char2sheet.png")
 	-- the mushrooms are 7 x 8 spriteSheets where the odd rows have a missing frame at the end
-	-- since I don't have to do the chinese layering trick I can just make one class tbh
+	-- since I don't have to do the layering trick I can just make one class tbh
 	enemy1_sheet = love.graphics.newImage("visuals/enemy1.png")
 	enemy2_sheet = love.graphics.newImage("visuals/enemy2.png")
 
@@ -45,10 +46,11 @@ function love.load()
 	mage = Mage(warriorSheet, mageArmorSheet, 1000, 550, 3, "Mage")
 	enemy = Enemy(enemy1_sheet, 300, 400 + 10, 11, "Enemy 1")
 	enemy2 = Enemy(enemy2_sheet, 300, 550 + 10, 12, "Enemy 2")
+	dump = Dump()
 
 	entities = {warrior, mage, enemy, enemy2}
 
-	-- I wish I could debug my own life
+	-- speed debugger
 	for i=1, 4 do
 		print(entities[i].name .. ": " .. entities[i].speed)
 	end
@@ -72,15 +74,16 @@ function love.load()
 		
 	debugActCycle = 1
 
-	-- GUI shit
-	--menu = Menu()
+	-- GUI stuff
+	-- I have to give the class a "dump" entitiy that's out of screen for the turns where it is not a playable character
+	menu = Menu(dump)
+
 
 	-- TODO:
 	-- refactor animation and frame drawing to use the OOP entity class (DONE)
 	-- start with drawing in the enemies (DONE)
 	-- WE'RE DOING THE TURN QUEUE FIRST BABY (DONE)
 	-- 	* the numbers part of the turn queue is done :)) tbh I can probs just leave it at that since the rest I'll index
-	-- 	* from ellipses I made the turn indicator a rectangle instead since the oval at the feet was too hard
 	-- game logic probs comes last TBH [I lied this is where I am currently]
 	-- 	* i think kasi this is just calling arithmetic on object properties hehe xd
 	-- 	* turnQueue[currentTurn].action to target, dealt {arithmetic} damage
@@ -94,6 +97,13 @@ function love.update(dt)
 	mage:animate(dt)
 	enemy:animate(dt)
 	enemy2:animate(dt)
+	if turnQueue[currentTurn].name == "Warrior" then
+		menu = Menu(warrior)
+	elseif turnQueue[currentTurn].name == "Mage" then
+		menu = Menu(mage)
+	else
+		menu = Menu(dump)
+	end
 
 end
 
@@ -111,6 +121,12 @@ function love.keypressed(key)
 		end
 	elseif key == "k" then
 		mage:act(mage.actions[debugActCycle])
+		debugActCycle = debugActCycle + 1
+		if debugActCycle >= 6 then
+			debugActCycle = 1
+		end
+	elseif key == "l" then
+		warrior:act(warrior.actions[debugActCycle])
 		debugActCycle = debugActCycle + 1
 		if debugActCycle >= 6 then
 			debugActCycle = 1
@@ -174,5 +190,5 @@ function love.draw()
 	mage:draw()
 	enemy:draw()
 	enemy2:draw()
-	--menu:draw()
+	menu:draw()
 end

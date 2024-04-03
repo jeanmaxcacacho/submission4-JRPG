@@ -4,16 +4,20 @@ Menu = Object:extend()
 -- the button list to render is dependent on the move set and target list of the object it is beside
 
 function Menu:new(entity)
-	self.x = entity.x + entity.frameHeight*3/2
-	self.y = entity.y - entity.frameWidth*3/2 -- this is because we scaled it 3x
+	-- this is because we scaled it 3x
+	self.x = entity.x + entity.width*3/2 + 40
+	self.y = entity.y - entity.height*3/2 - 30
 
+	self.font = love.graphics.newFont(12)
 	self.buttons = {}
-	for i=1, #entity.moves do
-		table.insert(buttons, entity.moves[i])
+	for i=1, #entity.actions do
+		table.insert(self.buttons, entity.actions[i])
 	end
 
+	self.entity = entity
+
 	self.width = 80
-	self.height = 30
+	self.height = 20
 
 	
 end
@@ -25,8 +29,30 @@ end
 
 function Menu:draw()
 	local margin = 20
+	local pegY = 0
 
-	love.graphics.setColor(0.6, 0.6, 0, 0.5)
-	love.graphics.rectangle("fill", self.x, self.y, self.width, self.height)
-	love.graphics.setColor(1, 1, 1, 1)
+	for i, button in ipairs(self.buttons) do
+		local y = self.y
+
+		love.graphics.setColor(0.4, 0.7, 0.3, 0.5)
+		love.graphics.rectangle(
+			"fill",
+			self.x,
+			y + pegY,
+			self.width,
+			self.height
+		)
+
+		love.graphics.setColor(0, 0, 0, 1)
+		love.graphics.print(
+			self.entity.actions[i],
+			self.font,
+			self.x + self.width/2 - self.font:getWidth(self.entity.actions[i])/2,
+			self.y - self.height/2 + self.font:getHeight(self.entity.actions[i])/2 + 5 + pegY
+		)
+		love.graphics.setColor(1, 1, 1, 1)
+
+		pegY = pegY + (self.height/2 + margin)
+	end
+
 end

@@ -81,6 +81,9 @@ function Warrior:new(spriteSheet, x, y, speed, name)
 		"kill self"
 	}
 
+	self.frameHeight = frameHeight
+	self.frameWidth = frameWidth
+
 	self.x = x
 	self.y = y
 	self.speed = speed
