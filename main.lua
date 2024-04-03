@@ -97,6 +97,7 @@ function love.update(dt)
 	mage:animate(dt)
 	enemy:animate(dt)
 	enemy2:animate(dt)
+
 	if turnQueue[currentTurn].name == "Warrior" then
 		menu = Menu(warrior)
 	elseif turnQueue[currentTurn].name == "Mage" then

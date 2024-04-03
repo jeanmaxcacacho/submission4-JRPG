@@ -115,8 +115,8 @@ function Warrior:act(action)
 		print(self.name.." killed self (from class)")
 	else
 		print("called but no match")
+		print(action)
 	end
-
 end
 
 function Warrior:draw()
