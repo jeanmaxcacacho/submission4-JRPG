@@ -139,7 +139,7 @@ function love.mousepressed(x, y, button)
 		print("kys".." "..x.." "..y)
 	end
 
-	menu:mousepressed(x, y, button)
+	warrior:act(menu:mousepressed(x, y, button))
 end
 
 function love.draw()

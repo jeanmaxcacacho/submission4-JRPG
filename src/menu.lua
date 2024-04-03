@@ -73,8 +73,7 @@ function Menu:mousepressed(x, y, button)
             local buttonY = self.y + (i-1) * (self.height/2 + 20)
 
             -- Check if the mouse click was inside the current button
-            if x > self.x and x < self.x + self.width and
-               y > buttonY and y < buttonY + self.height then
+            if x > self.x and x < self.x + self.width and y > buttonY and y < buttonY + self.height then
                 -- Perform the action associated with the button
 
                 print("Button "..btn.." clicked!")
@@ -83,18 +82,21 @@ function Menu:mousepressed(x, y, button)
 		print("Index i calls "..self.buttons[i])
 
 		if self.entity.name == "Warrior" and i == 1 then
-			self.entity.act("attack")
+			print(self.buttons[i])
+			return self.buttons[i]
 		elseif self.entity.name == "Warrior" and i == 2 then
-			self.entity.act("defend")
+			print(self.buttons[i])
+			return self.buttons[i]
 		elseif self.entity.name == "Warrior" and i == 3 then
-			self.entity.act("wide attack")
+			print(self.buttons[i])
+			return self.buttons[i]
 		elseif self.entity.name == "Warrior" and i == 4 then
-			self.entity.act("use potion")
+			print(self.buttons[i])
+			return self.buttons[i]
 		elseif self.entity.name == "Warrior" and i == 5 then
-			self.entity.act("kill self")
+			print(self.buttons[i])
+			return self.buttons[i]
 		end
-
-		print(self.entity.name)
             end
         end
     end
