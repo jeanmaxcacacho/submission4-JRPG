@@ -99,15 +99,15 @@ end
 
 function Mage:act(action)
 	if action == "attack" then
-		print(self.name.." has attacked")
+		print(self.name.." has attacked (from class)")
 	elseif action == "defend" then
-		print(self.name.." has defended")
+		print(self.name.." has defended (from class)")
 	elseif action == "heal" then
-		print(self.name.." has healed")
+		print(self.name.." has healed (from class)")
 	elseif action == "slow" then
-		print(self.name.." has cast slow")
+		print(self.name.." has cast slow (from class)")
 	elseif action == "kill self" then
-		print(self.name.." killed self")
+		print(self.name.." killed self (from class)")
 	end
 end
 

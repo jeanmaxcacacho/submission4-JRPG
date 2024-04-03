@@ -23,44 +23,65 @@ function Menu:new(entity)
 end
 
 function Menu:draw()
-	local margin = 20
-	local pegY = 0
-	local y = self.y
+    local margin = 20
+    local pegY = 0
+    local y = self.y
 
-	for i, button in ipairs(self.buttons) do
-		-- mouse interaction
-		local mx, my = love.mouse.getPosition()
-		local hover = mx > self.x and
-		mx < self.x + self.width and
-		my > self.y and
-		my < self.y + self.height
+    for i, button in ipairs(self.buttons) do
+        -- Calculate the position of the current button
+        local buttonY = y + pegY
 
-		local color = {0.4, 0.7, 0.3, 0.5}
+        -- mouse interaction
+        local mx, my = love.mouse.getPosition()
+        local hover = mx > self.x and
+                      mx < self.x + self.width and
+                      my > buttonY and
+                      my < buttonY + self.height  -- Check against the height of the current button
 
-		-- the timing is right, but the detection is ass
-		if hover then
-			color = {1, 1, 1, 1}
-		end
+        local color = {0.4, 0.7, 0.3, 0.5}
 
-		love.graphics.setColor(unpack(color))
-		love.graphics.rectangle(
-			"fill",
-			self.x,
-			y + pegY,
-			self.width,
-			self.height
-		)
+        -- the timing is right, but the detection is ass
+        if hover then
+            color = {1, 1, 1, 1}
+        end
 
-		love.graphics.setColor(0, 0, 0, 1)
-		love.graphics.print(
-			self.entity.actions[i],
-			self.font,
-			self.x + self.width/2 - self.font:getWidth(self.entity.actions[i])/2,
-			self.y - self.height/2 + self.font:getHeight(self.entity.actions[i])/2 + 5 + pegY
-		)
-		love.graphics.setColor(1, 1, 1, 1)
+        love.graphics.setColor(unpack(color))
+        love.graphics.rectangle(
+            "fill",
+            self.x,
+            buttonY,
+            self.width,
+            self.height
+        )
 
-		pegY = pegY + (self.height/2 + margin)
-	end
+        love.graphics.setColor(0, 0, 0, 1)
+        love.graphics.print(
+            button,  -- Use 'button' instead of 'self.entity.actions[i]'
+            self.font,
+            self.x + self.width/2 - self.font:getWidth(button)/2,
+            buttonY + self.height/2 - self.font:getHeight(button)/2
+        )
+        love.graphics.setColor(1, 1, 1, 1)
 
+        pegY = pegY + (self.height/2 + margin)
+    end
+end
+
+
+function Menu:mousepressed(x, y, button)
+    if button == 1 then -- Check if left mouse button was pressed
+        for i, btn in ipairs(self.buttons) do
+            local buttonY = self.y + (i-1) * (self.height/2 + 20)
+
+            -- Check if the mouse click was inside the current button
+            if x > self.x and x < self.x + self.width and
+               y > buttonY and y < buttonY + self.height then
+                -- Perform the action associated with the button
+                print("Button "..btn.." clicked!")
+		print(btn)
+		print(self.entity.name)
+		self.entity.act(btn)
+            end
+        end
+    end
 end

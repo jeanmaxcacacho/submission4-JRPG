@@ -66,3 +66,29 @@ function Menu:draw()
         pegY = pegY + (self.height/2 + margin)
     end
 end
+
+
+function Menu:mousepressed(x, y, button)
+    if button == 1 then -- Check if left mouse button was pressed
+        for i, btn in ipairs(self.buttons) do
+            local buttonY = self.y + (i-1) * (self.height/2 + 20)
+
+            -- Check if the mouse click was inside the current button
+            if x > self.x and x < self.x + self.width and
+               y > buttonY and y < buttonY + self.height then
+                -- Perform the action associated with the button
+                print("Button "..btn.." clicked!")
+            end
+        end
+    end
+end
+
+
+function Menu:setEntity(entity)
+    self.entity = entity
+    -- Update the buttons based on the actions of the new entity
+    self.buttons = {}
+    for i = 1, #entity.actions do
+        table.insert(self.buttons, entity.actions[i])
+    end
+end

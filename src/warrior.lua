@@ -78,7 +78,7 @@ function Warrior:new(spriteSheet, x, y, speed, name)
 		"defend",
 		"wide attack",
 		"use potion",
-		"kill self"
+		"run away"
 	}
 
 	self.frameHeight = frameHeight
@@ -104,16 +104,19 @@ end
 
 function Warrior:act(action)
 	if action == "attack" then
-		print(self.name.." has attacked")
+		print(self.name.." has attacked (from class)")
 	elseif action == "defend" then
-		print(self.name.." has defended")
+		print(self.name.." has defended (from class)")
 	elseif action == "wide attack" then
-		print(self.name.." has wide attacked")
+		print(self.name.." has wide attacked (from class)")
 	elseif action == "use potion" then
-		print(self.name.." has used potion")
+		print(self.name.." has used potion (from class)")
 	elseif action == "kill self" then
-		print(self.name.." killed self")
+		print(self.name.." killed self (from class)")
+	else
+		print("called but no match")
 	end
+
 end
 
 function Warrior:draw()

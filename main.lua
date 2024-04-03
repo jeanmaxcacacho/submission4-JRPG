@@ -9,7 +9,7 @@ function love.load()
 	require "src.mage"
 	require "src.enemy"
 	require "src.dump"
-	require "src.gptmenu"
+	require "src.menu"
 
 	-- screen & bg work
 	screen_width = love.graphics.getWidth()
@@ -104,7 +104,6 @@ function love.update(dt)
 	else
 		menu = Menu(dump)
 	end
-
 end
 
 function love.keypressed(key)
@@ -138,6 +137,8 @@ function love.mousepressed(x, y, button)
 	if button == 1 then
 		print("kys".." "..x.." "..y)
 	end
+
+	menu:mousepressed(x, y, button)
 end
 
 function love.draw()
