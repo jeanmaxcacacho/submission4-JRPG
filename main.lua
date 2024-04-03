@@ -110,6 +110,12 @@ function love.keypressed(key)
 	end
 end
 
+function love.mousepressed(x, y, button)
+	if button == 1 then
+		print("kys".." "..x.." "..y)
+	end
+end
+
 function love.draw()
 	love.graphics.draw(bg, 0, 0, 0, bg_scaleX, bg_scaleY)
 
