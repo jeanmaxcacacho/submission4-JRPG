@@ -22,19 +22,27 @@ function Menu:new(entity)
 	
 end
 
--- this is just going to keep calling the "event listeners" bullshit
-function Menu:update(dt)
-
-end
-
 function Menu:draw()
 	local margin = 20
 	local pegY = 0
+	local y = self.y
 
 	for i, button in ipairs(self.buttons) do
-		local y = self.y
+		-- mouse interaction
+		local mx, my = love.mouse.getPosition()
+		local hover = mx > self.x and
+		mx < self.x + self.width and
+		my > self.y and
+		my < self.y + self.height
 
-		love.graphics.setColor(0.4, 0.7, 0.3, 0.5)
+		local color = {0.4, 0.7, 0.3, 0.5}
+
+		-- the timing is right, but the detection is ass
+		if hover then
+			color = {1, 1, 1, 1}
+		end
+
+		love.graphics.setColor(unpack(color))
 		love.graphics.rectangle(
 			"fill",
 			self.x,

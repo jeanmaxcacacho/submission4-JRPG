@@ -9,7 +9,7 @@ function love.load()
 	require "src.mage"
 	require "src.enemy"
 	require "src.dump"
-	require "src.menu"
+	require "src.gptmenu"
 
 	-- screen & bg work
 	screen_width = love.graphics.getWidth()
