@@ -8,7 +8,7 @@ function love.load()
 	require "src.warrior"
 	require "src.mage"
 	require "src.enemy"
-	require "src.menu"
+	-- require "src.menu"
 
 	-- screen & bg work
 	screen_width = love.graphics.getWidth()
@@ -69,9 +69,11 @@ function love.load()
 	-- turn queue start
 	currentTurn = 1
 	print("---QUEUE START---\n" .. turnQueue[currentTurn].name .. " current turn is " .. currentTurn)
+		
+	debugActCycle = 1
 
 	-- GUI shit
-	menu = Menu()
+	--menu = Menu()
 
 	-- TODO:
 	-- refactor animation and frame drawing to use the OOP entity class (DONE)
@@ -83,7 +85,7 @@ function love.load()
 	-- 	* i think kasi this is just calling arithmetic on object properties hehe xd
 	-- 	* turnQueue[currentTurn].action to target, dealt {arithmetic} damage
 	-- 		* print something like that I guess
-	-- then start making the UI; the prospected hard part
+	-- then start making the UI; the prospected hard part (I kinda have an idea what to do but holy fuck)
 	-- 	* for this I'll start by first drawing rectangles on the screen
 end
 
@@ -106,6 +108,12 @@ function love.keypressed(key)
 			print("from ".. turnQueue[4].name .." to ".. turnQueue[currentTurn].name .. " current turn is " .. currentTurn)
 		else
 			print("from ".. turnQueue[currentTurn-1].name .." to ".. turnQueue[currentTurn].name .. " current turn is " .. currentTurn)
+		end
+	elseif key == "k" then
+		mage:act(mage.actions[debugActCycle])
+		debugActCycle = debugActCycle + 1
+		if debugActCycle >= 6 then
+			debugActCycle = 1
 		end
 	end
 end
@@ -166,5 +174,5 @@ function love.draw()
 	mage:draw()
 	enemy:draw()
 	enemy2:draw()
-	menu:draw()
+	--menu:draw()
 end

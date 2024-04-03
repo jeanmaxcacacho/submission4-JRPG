@@ -72,6 +72,14 @@ function Mage:new(charSheet, armSheet, x, y, speed, name)
 		)
 	end
 
+	self.actions = {
+		"attack",
+		"defend",
+		"heal",
+		"slow",
+		"kill self"
+	}
+
 	self.x = x
 	self.y = y
 	self.width = frameWidth
@@ -86,6 +94,20 @@ function Mage:animate(dt)
 	self.currentFrame = self.currentFrame + 10*dt
 	if self.currentFrame >= 6 then
 		self.currentFrame = 1
+	end
+end
+
+function Mage:act(action)
+	if action == "attack" then
+		print(self.name.." has attacked")
+	elseif action == "defend" then
+		print(self.name.." has defended")
+	elseif action == "heal" then
+		print(self.name.." has healed")
+	elseif action == "slow" then
+		print(self.name.." has cast slow")
+	elseif action == "kill self" then
+		print(self.name.." killed self")
 	end
 end
 

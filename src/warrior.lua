@@ -73,6 +73,14 @@ function Warrior:new(spriteSheet, x, y, speed, name)
 		)
 	end
 
+	self.actions = {
+		"attack",
+		"defend",
+		"wide attack",
+		"use potion",
+		"kill self"
+	}
+
 	self.x = x
 	self.y = y
 	self.speed = speed
@@ -88,6 +96,20 @@ function Warrior:animate(dt)
 
 	if self.currentFrame >= 6 then
 		self.currentFrame = 1
+	end
+end
+
+function Warrior:act(action)
+	if action == "attack" then
+		print(self.name.." has attacked")
+	elseif action == "defend" then
+		print(self.name.." has defended")
+	elseif action == "wide attack" then
+		print(self.name.." has wide attacked")
+	elseif action == "use potion" then
+		print(self.name.." has used potion")
+	elseif action == "kill self" then
+		print(self.name.." killed self")
 	end
 end
 
