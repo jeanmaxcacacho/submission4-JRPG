@@ -40,6 +40,7 @@ function Menu:draw()
 
         local color = {0.4, 0.7, 0.3, 0.5}
 
+        -- the timing is right, but the detection is ass
         if hover then
             color = {1, 1, 1, 1}
         end
@@ -58,7 +59,7 @@ function Menu:draw()
             button,  -- Use 'button' instead of 'self.entity.actions[i]'
             self.font,
             self.x + self.width/2 - self.font:getWidth(button)/2,
-            buttonY + self.height/2 - self.font:getHeight(button)/2
+            buttonY + self.height/2 - self.font:getHeight(button)/2 + 5
         )
         love.graphics.setColor(1, 1, 1, 1)
 
@@ -68,7 +69,7 @@ end
 
 
 function Menu:mousepressed(x, y, button)
-    if button == 1 then 
+    if button == 1 then -- Check if left mouse button was pressed
         for i, btn in ipairs(self.buttons) do
             local buttonY = self.y + (i-1) * (self.height/2 + 20)
 
@@ -76,26 +77,18 @@ function Menu:mousepressed(x, y, button)
             if x > self.x and x < self.x + self.width and
                y > buttonY and y < buttonY + self.height then
                 -- Perform the action associated with the button
-
                 print("Button "..btn.." clicked!")
-
-		-- even this calls the right thing
-		print("Index i calls "..self.buttons[i])
-
-		if self.entity.name == "Warrior" and i == 1 then
-			self.entity.act("attack")
-		elseif self.entity.name == "Warrior" and i == 2 then
-			self.entity.act("defend")
-		elseif self.entity.name == "Warrior" and i == 3 then
-			self.entity.act("wide attack")
-		elseif self.entity.name == "Warrior" and i == 4 then
-			self.entity.act("use potion")
-		elseif self.entity.name == "Warrior" and i == 5 then
-			self.entity.act("kill self")
-		end
-
-		print(self.entity.name)
             end
         end
+    end
+end
+
+
+function Menu:setEntity(entity)
+    self.entity = entity
+    -- Update the buttons based on the actions of the new entity
+    self.buttons = {}
+    for i = 1, #entity.actions do
+        table.insert(self.buttons, entity.actions[i])
     end
 end
