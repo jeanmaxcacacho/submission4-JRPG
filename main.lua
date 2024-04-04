@@ -139,7 +139,13 @@ function love.mousepressed(x, y, button)
 		print("kys".." "..x.." "..y)
 	end
 
-	warrior:act(menu:mousepressed(x, y, button))
+	local menuEntity, menuAction = menu:mousepressed(x, y, button)
+
+	if menuEntity == "Warrior" then
+		warrior:act(menuAction)
+	elseif menuEntity == "Mage" then
+		mage:act(menuAction)
+	end
 end
 
 function love.draw()

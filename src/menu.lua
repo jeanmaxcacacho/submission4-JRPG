@@ -81,21 +81,21 @@ function Menu:mousepressed(x, y, button)
 		-- even this calls the right thing
 		print("Index i calls "..self.buttons[i])
 
-		if self.entity.name == "Warrior" and i == 1 then
+		if i == 1 then
 			print(self.buttons[i])
-			return self.buttons[i]
-		elseif self.entity.name == "Warrior" and i == 2 then
+			return self.entity.name, self.buttons[i]
+		elseif i == 2 then
 			print(self.buttons[i])
-			return self.buttons[i]
-		elseif self.entity.name == "Warrior" and i == 3 then
+			return self.entity.name, self.buttons[i]
+		elseif i == 3 then
 			print(self.buttons[i])
-			return self.buttons[i]
-		elseif self.entity.name == "Warrior" and i == 4 then
+			return self.entity.name, self.buttons[i]
+		elseif i == 4 then
 			print(self.buttons[i])
-			return self.buttons[i]
-		elseif self.entity.name == "Warrior" and i == 5 then
+			return self.entity.name, self.buttons[i]
+		elseif i == 5 then
 			print(self.buttons[i])
-			return self.buttons[i]
+			return self.entity.name, self.buttons[i]
 		end
             end
         end
