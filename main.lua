@@ -107,6 +107,7 @@ function love.update(dt)
 	end
 end
 
+-- this is just used for debugging
 function love.keypressed(key)
 	if key == "space" then
 		currentTurn = currentTurn + 1

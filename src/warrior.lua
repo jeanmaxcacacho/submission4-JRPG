@@ -111,8 +111,9 @@ function Warrior:act(action)
 		print(self.name.." has wide attacked (from class)")
 	elseif action == "use potion" then
 		print(self.name.." has used potion (from class)")
-	elseif action == "kill self" then
-		print(self.name.." killed self (from class)")
+	elseif action == "run away" then
+		print(self.name.." the team has run away (from warrior class)")
+		love.event.quit()
 	else
 		print("called but no match")
 		print(action)

@@ -77,7 +77,7 @@ function Mage:new(charSheet, armSheet, x, y, speed, name)
 		"defend",
 		"heal",
 		"slow",
-		"kill self"
+		"run away"
 	}
 
 	self.x = x
@@ -106,8 +106,9 @@ function Mage:act(action)
 		print(self.name.." has healed (from class)")
 	elseif action == "slow" then
 		print(self.name.." has cast slow (from class)")
-	elseif action == "kill self" then
-		print(self.name.." killed self (from class)")
+	elseif action == "run away" then
+		print(self.name.." the team has run away (from mage class)")
+		love.event.quit()
 	end
 end
 
