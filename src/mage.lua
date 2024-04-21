@@ -5,12 +5,21 @@ function Mage:new(charSheet, armSheet, x, y, speed, name)
 	self.armSheet = armSheet
 	self.frames = {}
 
+
+	self.x = x
+	self.y = y
+	self.name = name
+	self.currentFrame = 1
+
 	-- both sheets are basically the same dimension wise
 	-- actually bite me if this is bad software engineering
 	local spriteSheetWidth = charSheet:getWidth()
 	local spriteSheetHeight = armSheet:getHeight()
 	local frameWidth = spriteSheetWidth/5
 	local frameHeight = spriteSheetHeight/4
+
+	self.width = frameWidth
+	self.height = frameHeight
 
 	-- row 1
 	for i = 0, 4 do
@@ -80,13 +89,10 @@ function Mage:new(charSheet, armSheet, x, y, speed, name)
 		"run away"
 	}
 
-	self.x = x
-	self.y = y
-	self.width = frameWidth
-	self.height = frameHeight
+	-- gameplay shit
 	self.speed = speed
-	self.name = name
-	self.currentFrame = 1
+	self.maxhealth = 15
+	self.health = 12
 end
 
 function Mage:animate(dt)
