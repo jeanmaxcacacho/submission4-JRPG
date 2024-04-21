@@ -81,16 +81,12 @@ function Warrior:new(spriteSheet, x, y, speed, name)
 		"run away"
 	}
 
-	self.frameHeight = frameHeight
-	self.frameWidth = frameWidth
-
 	self.x = x
 	self.y = y
 	self.speed = speed
 	self.width = frameWidth
 	self.height = frameHeight
 	self.name = name
-	self.isTurn = false
 	self.currentFrame = 1
 end
 

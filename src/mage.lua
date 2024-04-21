@@ -86,7 +86,6 @@ function Mage:new(charSheet, armSheet, x, y, speed, name)
 	self.height = frameHeight
 	self.speed = speed
 	self.name = name
-	self.isTurn = false
 	self.currentFrame = 1
 end
 
