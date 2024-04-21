@@ -144,8 +144,16 @@ function love.mousepressed(x, y, button)
 
 	if menuEntity == "Warrior" then
 		warrior:act(menuAction)
+		currentTurn = currentTurn + 1
+		if currentTurn > 4 then
+			currentTurn = 1
+		end
 	elseif menuEntity == "Mage" then
 		mage:act(menuAction)
+		currentTurn = currentTurn + 1
+		if currentTurn > 4 then
+			currentTurn = 1
+		end
 	end
 end
 
