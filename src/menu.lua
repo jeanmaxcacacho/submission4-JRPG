@@ -79,7 +79,7 @@ function Menu:mousepressed(x, y, button)
                 print("Button "..btn.." clicked!")
 
 		-- even this calls the right thing
-		print("Index i calls "..self.buttons[i])
+		print("Index".." "..i.. " calls "..self.buttons[i])
 
 		if i == 1 then
 			print(self.buttons[i])
